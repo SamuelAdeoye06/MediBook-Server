@@ -117,9 +117,17 @@ app.use('/api/auth', authRoutes)
 const adminRoutes = require('./routes/admin.route')
 app.use('/api/admin', adminRoutes)
 
-// (uncomment as each module gets built)
-// const patientRoutes = require('./routes/patient.route')
-// app.use('/api/patients', patientRoutes)
+const patientRoutes = require('./routes/patient.route')
+app.use('/api/patients', patientRoutes)
+
+const lookupRoutes = require('./routes/lookup.route')
+app.use('/api', lookupRoutes)
+
+const doctorRoutes = require('./routes/doctor.route')
+app.use('/api/doctor', doctorRoutes)
+
+const accountRoutes = require('./routes/account.route')
+app.use('/api/account', accountRoutes)
 
 app.get('/', (req, res) => {
   res.json({ success: true, message: 'MediBook+ API is running', data: null })

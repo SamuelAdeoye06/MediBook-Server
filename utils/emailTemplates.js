@@ -96,9 +96,42 @@ const doctorRejectedEmail = (firstName) => ({
   `)
 })
 
+const appointmentApprovedEmail = (firstName, doctorName, department, dateLabel, timeSlot) => ({
+  subject: 'MediBook+ — Your Appointment is Confirmed',
+  html: wrapper(`
+    <h2 style="font-size:22px;font-weight:800;color:${TEXT_DARK};margin:0 0 8px;">Good news, ${firstName}!</h2>
+    <p style="font-size:15px;color:${TEXT_MUTED};line-height:1.65;margin:0 0 20px;">
+      Your appointment has been confirmed by the doctor.
+    </p>
+    <div style="background:#F8FAFC;border:1px solid ${BORDER};border-radius:10px;padding:20px;margin-bottom:24px;">
+      <p style="font-size:14px;color:${TEXT_DARK};margin:0 0 6px;"><strong>Doctor:</strong> Dr. ${doctorName}</p>
+      <p style="font-size:14px;color:${TEXT_DARK};margin:0 0 6px;"><strong>Department:</strong> ${department}</p>
+      <p style="font-size:14px;color:${TEXT_DARK};margin:0 0 6px;"><strong>Date:</strong> ${dateLabel}</p>
+      <p style="font-size:14px;color:${TEXT_DARK};margin:0;"><strong>Time:</strong> ${timeSlot}</p>
+    </div>
+    <p style="font-size:13px;color:#94A3B8;margin:0;">Please arrive a few minutes early. See you then!</p>
+  `)
+})
+
+const appointmentRejectedEmail = (firstName, doctorName, dateLabel, timeSlot) => ({
+  subject: 'MediBook+ — Appointment Update',
+  html: wrapper(`
+    <h2 style="font-size:22px;font-weight:800;color:${TEXT_DARK};margin:0 0 8px;">Hi ${firstName},</h2>
+    <p style="font-size:15px;color:${TEXT_MUTED};line-height:1.65;margin:0 0 20px;">
+      Unfortunately, your appointment request with Dr. ${doctorName} for <strong>${dateLabel} at ${timeSlot}</strong> could not be accommodated.
+    </p>
+    <p style="font-size:15px;color:${TEXT_MUTED};line-height:1.65;margin:0 0 28px;">
+      Please feel free to book another available time that works better.
+    </p>
+    ${button(`${process.env.CLIENT_URL}/book`, 'Book Another Appointment')}
+  `)
+})
+
 module.exports = {
   welcomePatientEmail,
   doctorApplicationReceivedEmail,
   doctorApprovedEmail,
-  doctorRejectedEmail
+  doctorRejectedEmail,
+  appointmentApprovedEmail,
+  appointmentRejectedEmail
 }
